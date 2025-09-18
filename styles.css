@@ -1,0 +1,27 @@
+body {
+  background-color: slategray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.calculator {
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  width: 500px;
+}
+
+.screen {
+  border: 2px solid blue;
+  flex: 1;
+}
+
+.buttons {
+  border: 2px solid green;
+  flex: 4;
+}
