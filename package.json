@@ -1,0 +1,15 @@
+{
+  "name": "odin-calculator",
+  "version": "1.0.0",
+  "description": "Created for vitest",
+  "main": "main.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
