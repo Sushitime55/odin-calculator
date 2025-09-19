@@ -24,8 +24,14 @@ function onButtonPress(key) {
     let nums = getNumbers(screen.textContent);
     let operators = getOperators(screen.textContent);
 
-    let result = operate(operators[0], parseFloat(nums[0]), parseFloat(nums[1]));
-    console.log(`result: ${result}`);
+    // assuming nums.length == operators.length + 1
+    let result = parseFloat(nums[0]);
+    for (let i = 0; i < operators.length; i++) {
+      console.log(`running: operate(${operators[i]}, ${result}, ${nums[i + 1]})`);
+      result = operate(operators[i], result, parseFloat(nums[i + 1]));
+      console.log(`result: ${result}`);
+    }
+
     const resultScreen = document.querySelector(".result");
     resultScreen.textContent = screen.textContent + result;
     screen.textContent = "";
@@ -44,7 +50,8 @@ function getNumbers(str) {
 }
 
 function getOperators(str) {
-  return str.match(/\D/g);
+  // exclude '='
+  return str.match(/\D/g).filter((char) => char != "=");
 }
 
 // MATH FUNCTIONS
