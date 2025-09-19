@@ -1,6 +1,8 @@
 import { describe, test, it, expect } from "vitest";
 const calculator = require("./main");
 
+// remove addButtonFunctionality() at bottom of main.js to run tests;
+
 describe("operate", () => {
   it("should call add when '+' is passed", () => {
     expect(calculator.operate("+", 4, 9)).toBe(13);

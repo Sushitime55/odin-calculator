@@ -13,9 +13,7 @@ function operate(operator, x, y) {
   }
 }
 
-// store inputs ( x, operator, y)
-// once inputs are 3, call operate with inputs
-// inputs are stored on screen, so change screen somehow
+// inputs are stored on screen, so manipulate screen to do things
 function onButtonPress(key) {
   const screen = document.querySelector(".screen");
   screen.textContent += key;
@@ -36,6 +34,7 @@ function onButtonPress(key) {
       console.log(`result: ${result}`);
     }
 
+    // display result in results box and clear screen
     const resultScreen = document.querySelector(".result");
     resultScreen.textContent = screen.textContent + result;
     screen.textContent = "";

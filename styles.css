@@ -30,4 +30,13 @@ body {
 .buttons {
   border: 2px solid green;
   flex: 20;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button {
+  font-size: 32px;
+  height: 60px;
+  width: 60px;
 }
