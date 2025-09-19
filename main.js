@@ -8,6 +8,8 @@ function operate(operator, x, y) {
       return multiply(x, y);
     case "/":
       return divide(x, y);
+    case "^":
+      return exponent(x, y);
   }
 }
 
@@ -23,6 +25,8 @@ function onButtonPress(key) {
   if (key == "=") {
     let nums = getNumbers(screen.textContent);
     let operators = getOperators(screen.textContent);
+    console.log(nums);
+    console.log(operators);
 
     // assuming nums.length == operators.length + 1
     let result = parseFloat(nums[0]);
@@ -68,19 +72,23 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-  if (y == 0) return Error;
+  if (y == 0) return "Can't divide by 0 dummy";
 
   return x / y;
 }
 
+function exponent(base, exp) {
+  return base ** exp;
+}
+
+// comment this out to run tests
 addButtonFunctionality();
 
 module.exports = {
   operate,
-  onButtonPress,
-  addButtonFunctionality,
   add,
   subtract,
   multiply,
   divide,
+  exponent,
 };

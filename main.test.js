@@ -8,6 +8,9 @@ describe("operate", () => {
   it("should call divide when '/' is passed", () => {
     expect(calculator.operate("/", 12, 6)).toBe(2);
   });
+  it("should call exponent when '^' is passed", () => {
+    expect(calculator.operate("^", 4, 3)).toBe(64);
+  });
 });
 
 describe("add", () => {
@@ -21,6 +24,15 @@ describe("divide", () => {
     expect(calculator.divide(8, 2)).toBe(4);
   });
   it("should return Error when dividing by zero", () => {
-    expect(calculator.divide(8, 0)).toBe(Error);
+    expect(calculator.divide(8, 0)).toBe("Can't divide by 0 dummy");
+  });
+});
+
+describe("exponent", () => {
+  it("should return base raised to exp", () => {
+    expect(calculator.exponent(2, 3)).toBe(8);
+  });
+  it("should return base raised to exp", () => {
+    expect(calculator.exponent(2, 0)).toBe(1);
   });
 });
