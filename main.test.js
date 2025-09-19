@@ -13,6 +13,18 @@ describe("operate", () => {
   });
 });
 
+describe("getNumbers", () => {
+  it("should return only 0-9 and periods", () => {
+    expect(calculator.getNumbers("34.42+584=43-31")).toStrictEqual(["34.42", "584", "43", "31"]);
+  });
+});
+
+describe("getOperators", () => {
+  it("should return only '+', '-', '*', '/', and '^'", () => {
+    expect(calculator.getOperators("5*4-4.5/8=4+2")).toStrictEqual(["*", "-", "/", "+"]);
+  });
+});
+
 describe("add", () => {
   it("should return sum of both values", () => {
     expect(calculator.add(5, 7)).toBe(12);

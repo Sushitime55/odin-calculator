@@ -50,12 +50,13 @@ function addButtonFunctionality() {
 }
 
 function getNumbers(str) {
-  return str.split(/\D/);
+  // exclude all except 0-9 and '.'
+  return str.split(/[^0-9.]/);
 }
 
 function getOperators(str) {
-  // exclude '='
-  return str.match(/\D/g).filter((char) => char != "=");
+  // exclude 0-9, '=' and '.'
+  return str.match(/\D/g).filter((char) => char != "=" && char != ".");
 }
 
 // MATH FUNCTIONS
@@ -86,6 +87,8 @@ addButtonFunctionality();
 
 module.exports = {
   operate,
+  getNumbers,
+  getOperators,
   add,
   subtract,
   multiply,
