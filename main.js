@@ -19,11 +19,15 @@ function onButtonPress(key) {
   screen.textContent += key;
   console.log(screen.textContent);
 
-  let input = screen.textContent;
-  if (input.length == 3) {
-    console.log(`commencing operate(${input[1]}, ${input[0]}, ${input[2]})`);
-    let result = operate(input[1], input[0], input[2]);
+  // ignore pemdas for now
+  if (key == "=") {
+    let nums = getNumbers(screen.textContent);
+    let operators = getOperators(screen.textContent);
+
+    let result = operate(operators[0], parseFloat(nums[0]), parseFloat(nums[1]));
     console.log(`result: ${result}`);
+    const resultScreen = document.querySelector(".result");
+    resultScreen.textContent = screen.textContent + result;
     screen.textContent = "";
   }
 }
@@ -33,6 +37,14 @@ function addButtonFunctionality() {
   buttons.forEach((button) => {
     button.addEventListener("click", onButtonPress.bind(event, button.textContent));
   });
+}
+
+function getNumbers(str) {
+  return str.split(/\D/);
+}
+
+function getOperators(str) {
+  return str.match(/\D/g);
 }
 
 // MATH FUNCTIONS

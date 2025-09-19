@@ -19,10 +19,15 @@ body {
 
 .screen {
   border: 2px solid blue;
+  flex: 4;
+}
+
+.result {
+  border: 2px solid pink;
   flex: 1;
 }
 
 .buttons {
   border: 2px solid green;
-  flex: 4;
+  flex: 20;
 }
