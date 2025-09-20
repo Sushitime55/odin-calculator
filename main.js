@@ -94,3 +94,5 @@ module.exports = {
   divide,
   exponent,
 };
+
+//TODO: handle duplicate symbols i.e. ** +- ///// /^ ... 7....2.8.3

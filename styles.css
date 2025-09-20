@@ -1,5 +1,6 @@
 body {
-  background-color: slategray;
+  /* background-color: slategray; */
+  background: linear-gradient(15deg, rgb(219, 175, 184), rgb(63, 63, 63));
   display: flex;
   justify-content: center;
   align-items: center;
