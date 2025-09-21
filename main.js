@@ -17,8 +17,13 @@ function operate(operator, x, y) {
 function onButtonPress(key) {
   const screen = document.querySelector(".screen");
 
-  if (key == "⌫") {
+  if (key == "BACK") {
     screen.textContent = screen.textContent.slice(0, -1);
+    return;
+  }
+
+  if (key == "CLEAR") {
+    screen.textContent = "";
     return;
   }
 

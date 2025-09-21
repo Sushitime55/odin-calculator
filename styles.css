@@ -32,35 +32,39 @@ body {
 .screen {
   /* border: 2px solid blue; */
   flex: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .result {
   /* border: 2px solid pink; */
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: end;
 }
 
 .buttons {
-  border: 2px solid rgb(82, 82, 82);
+  /* border: 2px solid rgb(82, 82, 82); */
   flex: 4;
   display: flex;
   gap: 12px;
-  padding: 24px;
+  padding: 32px;
 }
 
 .digits {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: center;
+  align-content: end;
   gap: 8px;
-  padding: 40px;
+  padding: 24px 40px;
   flex: 3;
 }
 
 .operators {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -73,4 +77,8 @@ body {
   font-size: 32px;
   height: 60px;
   width: 60px;
+}
+
+.del-text {
+  font-size: 16px;
 }
