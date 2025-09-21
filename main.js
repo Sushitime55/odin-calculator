@@ -13,8 +13,35 @@ function operate(operator, x, y) {
   }
 }
 
-// inputs are stored on screen, so manipulate screen to do things
+function calculateExpression(nums, operators) {
+  let pemdas = ["^", "*", "/", "+", "-"];
+  for (let i = 0; i < pemdas.length; i++) {
+    if (!operators.includes(pemdas[i])) continue; // skip operator if not present
+
+    for (let j = 0; j < operators.length; j++) {
+      if (operators[j] == pemdas[i]) {
+        console.log(`running: operate(${operators[j]}, ${nums[j]}, ${nums[j + 1]})`);
+        result = operate(operators[j], parseFloat(nums[j]), parseFloat(nums[j + 1]));
+        console.log(`result: ${result}`);
+
+        nums[j] = null;
+        nums[j + 1] = result; // store result(s) as next num for future calcs
+        operators[j] = null;
+      }
+    }
+
+    // remove nums and operators that have been used
+    nums = nums.filter((num) => num != null);
+    operators = operators.filter((operator) => operator != null);
+    console.log(nums);
+    console.log(operators);
+  }
+
+  return nums[0];
+}
+
 function onButtonPress(key) {
+  // inputs are stored on screen, so manipulate screen to do things
   const screen = document.querySelector(".screen");
 
   if (key == "BACK") {
@@ -35,22 +62,14 @@ function onButtonPress(key) {
   screen.textContent += key;
   console.log(screen.textContent);
 
-  // ignore pemdas for now
   if (key == "=") {
     let nums = getNumbers(screen.textContent);
     let operators = getOperators(screen.textContent);
     console.log(nums);
     console.log(operators);
 
-    // assuming nums.length == operators.length + 1
-    let result = parseFloat(nums[0]);
-    for (let i = 0; i < operators.length; i++) {
-      console.log(`running: operate(${operators[i]}, ${result}, ${nums[i + 1]})`);
-      result = operate(operators[i], result, parseFloat(nums[i + 1]));
-      console.log(`result: ${result}`);
-    }
+    let result = calculateExpression(nums, operators);
 
-    // display result in results box and clear screen
     const resultScreen = document.querySelector(".result");
     resultScreen.textContent = screen.textContent + result;
     screen.textContent = "";
