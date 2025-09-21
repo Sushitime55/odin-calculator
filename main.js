@@ -16,6 +16,12 @@ function operate(operator, x, y) {
 // inputs are stored on screen, so manipulate screen to do things
 function onButtonPress(key) {
   const screen = document.querySelector(".screen");
+
+  // prevent duplicate operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
+  lastChar = screen.textContent.slice(-1);
+  if (isDuplicateOperator(lastChar, key)) return;
+  if (key == "." && !isValidDecimal(screen.textContent)) return;
+
   screen.textContent += key;
   console.log(screen.textContent);
 
@@ -41,11 +47,25 @@ function onButtonPress(key) {
   }
 }
 
-function addButtonFunctionality() {
-  const buttons = document.querySelectorAll(".button");
-  buttons.forEach((button) => {
-    button.addEventListener("click", onButtonPress.bind(event, button.textContent));
-  });
+function isDuplicateOperator(lastChar, key) {
+  let operators = ["+", "-", "*", "/", "^", "."];
+  if (operators.includes(key) && operators.includes(lastChar)) {
+    return true;
+  }
+  return false;
+}
+
+function isValidDecimal(currentString) {
+  let operators = ["+", "-", "*", "/", "^", "."];
+  for (let i = currentString.length; i >= 0; i--) {
+    if (operators.includes(currentString[i])) {
+      if (currentString[i] != ".") {
+        return true;
+      }
+      return false;
+    }
+  }
+  return true;
 }
 
 function getNumbers(str) {
@@ -56,6 +76,13 @@ function getNumbers(str) {
 function getOperators(str) {
   // exclude 0-9, '=' and '.'
   return str.match(/\D/g).filter((char) => char != "=" && char != ".");
+}
+
+function addButtonFunctionality() {
+  const buttons = document.querySelectorAll(".button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", onButtonPress.bind(event, button.textContent));
+  });
 }
 
 // MATH FUNCTIONS
@@ -95,4 +122,5 @@ module.exports = {
   exponent,
 };
 
-//TODO: handle duplicate symbols i.e. ** +- ///// /^ ... 7....2.8.3
+//TODO: implement pemdas
+//TODO: implement negatives
