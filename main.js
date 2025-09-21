@@ -17,6 +17,11 @@ function operate(operator, x, y) {
 function onButtonPress(key) {
   const screen = document.querySelector(".screen");
 
+  if (key == "⌫") {
+    screen.textContent = screen.textContent.slice(0, -1);
+    return;
+  }
+
   // prevent duplicate operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
   lastChar = screen.textContent.slice(-1);
   if (isDuplicateOperator(lastChar, key)) return;
