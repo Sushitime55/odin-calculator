@@ -14,7 +14,8 @@ function operate(operator, x, y) {
 }
 
 function calculateExpression(nums, operators) {
-  let pemdas = ["^", "*", "/", "+", "-"];
+  // must follow this order to work
+  let pemdas = ["^", "*", "/", "-", "+"];
   for (let i = 0; i < pemdas.length; i++) {
     if (!operators.includes(pemdas[i])) continue; // skip operator if not present
 
@@ -54,9 +55,10 @@ function onButtonPress(key) {
     return;
   }
 
-  // prevent duplicate operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
+  // prevent invalid duplicate operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
   lastChar = screen.textContent.slice(-1);
-  if (isDuplicateOperator(lastChar, key)) return;
+  secondLastChar = screen.textContent.slice(-2, -1);
+  if (isDuplicateOperator(lastChar, secondLastChar, key)) return;
   if (key == "." && !isValidDecimal(screen.textContent)) return;
 
   screen.textContent += key;
@@ -76,8 +78,16 @@ function onButtonPress(key) {
   }
 }
 
-function isDuplicateOperator(lastChar, key) {
+function isDuplicateOperator(lastChar, secondLastChar, key) {
   let operators = ["+", "-", "*", "/", "^", "."];
+  // handle "-" differently to account for negatives
+  if (key == "-") {
+    if ((operators.includes(lastChar) && operators.includes(secondLastChar)) || lastChar == ".") {
+      return true;
+    }
+    return false;
+  }
+
   if (operators.includes(key) && operators.includes(lastChar)) {
     return true;
   }
@@ -98,13 +108,16 @@ function isValidDecimal(currentString) {
 }
 
 function getNumbers(str) {
-  // exclude all except 0-9 and '.'
-  return str.split(/[^0-9.]/);
+  // any sequence of digits preceded by and including "-" at start of string OR
+  // any sequence of digits preceded by and including "-" preceded by a non-digit (assume operator) (i.e *-82) OR
+  // any sequence of digits
+  return str.match(/^\-\d+\.?\d*|(?<=[^\d])-\d*\.?\d*|\d+\.?\d*/g);
 }
 
 function getOperators(str) {
-  // exclude 0-9, '=' and '.'
-  return str.match(/\D/g).filter((char) => char != "=" && char != ".");
+  // "+" OR "*" OR "/" OR "^" OR
+  // "-" preceded by any digit
+  return str.match(/\+|\*|\/|\^|(?<=\d)-/g);
 }
 
 function addButtonFunctionality() {
@@ -151,5 +164,4 @@ module.exports = {
   exponent,
 };
 
-//TODO: implement pemdas
-//TODO: implement negatives
+//TODO: keyboard support
