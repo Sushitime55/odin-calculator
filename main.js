@@ -127,6 +127,47 @@ function addButtonFunctionality() {
   });
 }
 
+function addKeyboardFunctionality() {
+  const input = document.querySelector(".screen");
+  input.addEventListener("keydown", (e) => {
+    let allowedKeys = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "0",
+      ".",
+      "+",
+      "-",
+      "*",
+      "/",
+      "^",
+      "=",
+      "BACK",
+      "CLEAR",
+    ];
+    let key = e.key;
+    if (key == "Enter") key = "=";
+    if (key == "Escape") key = "CLEAR";
+    if (key == "Backspace") {
+      e.preventDefault();
+      key = "BACK";
+    }
+    if (key == "/") {
+      e.preventDefault();
+    }
+
+    // pass valid keys to onButtonPress to process
+    if (allowedKeys.includes(key)) onButtonPress(key);
+  });
+}
+
 // MATH FUNCTIONS
 function add(x, y) {
   return x + y;
@@ -150,8 +191,9 @@ function exponent(base, exp) {
   return base ** exp;
 }
 
-// comment this out to run tests
+// comment these out to run tests
 addButtonFunctionality();
+addKeyboardFunctionality();
 
 module.exports = {
   operate,
@@ -163,5 +205,3 @@ module.exports = {
   divide,
   exponent,
 };
-
-//TODO: keyboard support

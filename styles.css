@@ -41,7 +41,6 @@ body {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: end;
 }
 
 .buttons {
