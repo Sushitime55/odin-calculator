@@ -14,11 +14,16 @@ function operate(operator, x, y) {
 }
 
 function calculateExpression(nums, operators) {
+  if (nums != null && operators == null) return nums[0];
+  if (operators == null) return 0;
+  if (nums == null) return 0;
+
   // must follow this order to work
   let pemdas = ["^", "*", "/", "-", "+"];
   for (let i = 0; i < pemdas.length; i++) {
     if (!operators.includes(pemdas[i])) continue; // skip operator if not present
 
+    // nums.length = operators.length + 1
     for (let j = 0; j < operators.length; j++) {
       if (operators[j] == pemdas[i]) {
         console.log(`running: operate(${operators[j]}, ${nums[j]}, ${nums[j + 1]})`);
@@ -47,11 +52,13 @@ function onButtonPress(key) {
 
   if (key == "BACK") {
     screen.textContent = screen.textContent.slice(0, -1);
+    console.log(screen.textContent);
     return;
   }
 
   if (key == "CLEAR") {
     screen.textContent = "";
+    console.log(screen.textContent);
     return;
   }
 
@@ -80,9 +87,17 @@ function onButtonPress(key) {
 
 function isValidOperator(lastChar, secondLastChar, key) {
   let operators = ["+", "-", "*", "/", "^", "."];
+
+  // prevent operator from being first input
+  if (!lastChar && operators.includes(key) && key != "-") return false;
+
   // handle "-" differently to account for negatives
   if (key == "-") {
-    if ((operators.includes(lastChar) && operators.includes(secondLastChar)) || lastChar == ".") {
+    if (
+      (operators.includes(lastChar) && operators.includes(secondLastChar)) ||
+      (operators.includes(lastChar) && !secondLastChar) ||
+      lastChar == "."
+    ) {
       return false;
     }
     return true;
