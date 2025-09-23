@@ -55,10 +55,10 @@ function onButtonPress(key) {
     return;
   }
 
-  // prevent invalid duplicate operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
+  // prevent invalid operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
   lastChar = screen.textContent.slice(-1);
   secondLastChar = screen.textContent.slice(-2, -1);
-  if (isDuplicateOperator(lastChar, secondLastChar, key)) return;
+  if (!isValidOperator(lastChar, secondLastChar, key)) return;
   if (key == "." && !isValidDecimal(screen.textContent)) return;
 
   screen.textContent += key;
@@ -78,20 +78,20 @@ function onButtonPress(key) {
   }
 }
 
-function isDuplicateOperator(lastChar, secondLastChar, key) {
+function isValidOperator(lastChar, secondLastChar, key) {
   let operators = ["+", "-", "*", "/", "^", "."];
   // handle "-" differently to account for negatives
   if (key == "-") {
     if ((operators.includes(lastChar) && operators.includes(secondLastChar)) || lastChar == ".") {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   if (operators.includes(key) && operators.includes(lastChar)) {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 
 function isValidDecimal(currentString) {
