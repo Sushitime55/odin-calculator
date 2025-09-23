@@ -62,6 +62,15 @@ function onButtonPress(key) {
     return;
   }
 
+  if (key == "ANS") {
+    const result = document.querySelector(".result");
+    let previousResult = result.textContent.split("=")[1];
+    if (previousResult && previousResult != "NaN") {
+      screen.textContent += previousResult;
+    }
+    return;
+  }
+
   // prevent invalid operators and invalid periods (++, *^, /+, .., 6.5.3, etc)
   lastChar = screen.textContent.slice(-1);
   secondLastChar = screen.textContent.slice(-2, -1);
